@@ -1,0 +1,21 @@
+extends ../node_modules/pug-bootstrap/layouts/navbar-fixed
+
+block body
+
+  +navbar("Force.com","navbar", "inverse")
+    +nav_item("/cases") Cases
+    +nav_item("/accounts") Accounts
+    +nav_item("/contacts") Contacts
+    +nav_item("#") Opportunities
+  
+  .container
+    div(style='padding-bottom:100px;')
+ 
+    div
+     b #{title}
+
+
+ 
+
+       
+

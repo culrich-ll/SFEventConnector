@@ -1,0 +1,47 @@
+extends ../node_modules/pug-bootstrap/layouts/navbar-fixed
+
+block body
+
+  +navbar("Force.com","navbar", "inverse")
+    +nav_item("/") Home
+    +nav_item("/cases", "active") Cases
+    +nav_item("/accounts") Accounts
+    +nav_item("/contacts") Contacts
+    +nav_item("#") Opportunities
+  
+  .container
+    div(style='padding-bottom:10px;')
+ 
+    div
+      form.form-signin(action="/create-case", method="get")
+         button.btn.btn-large.btn-primary(type="submit", style='margin:1px;') Create case
+      table.table.table-striped.table-hover.span12
+        thead
+          tr 
+            th Id 
+            th External ID
+            th Serial number
+            th Subject
+            th Origin
+        tbody
+          each r in records
+            
+            tr
+             form.form-signin(action="/delete-case", method="post")
+              td
+                 input.input-block-level(type="text", 
+                                         name="id", 
+                                         value=r.get('id'), readonly
+                                         )
+              td= r.get('External_ID__c')
+              td= r.get('Serial_number__c')
+              td= r.get('Subject')
+              td= r.get('Origin')
+              td
+                button.btn.btn-large.btn-primary(type="submit", style='margin:1px;') Del
+
+
+ 
+
+       
+

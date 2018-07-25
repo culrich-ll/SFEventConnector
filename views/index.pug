@@ -1,0 +1,21 @@
+extends ../node_modules/pug-bootstrap/layouts/navbar-fixed
+
+block body
+
+  +navbar("Force.com","navbar", "inverse")
+    +nav_item("/") Home
+    +nav_item("/cases") Cases
+    +nav_item("/accounts") Accounts
+    +nav_item("/contacts") Contacts
+    +nav_item("#") Opportunities
+  
+  .container
+    div(style='padding-bottom:10px;')
+
+      p This application shows how to run Node.js with force.com as the backend using nforce npm module.
+
+      p The user:
+      b #{User}
+      p The instance:
+      b #{Instance}
+
