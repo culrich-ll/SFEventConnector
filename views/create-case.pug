@@ -19,13 +19,7 @@ block body
       br
       input#serialNumber.input-block-level(type="text", name="serialNumber", placeholder="The serial number", style='margin:10px;', value=serialNumber)  
       br
-      input#origin.input-block-level(type="text", name="origin", placeholder="PHONE", style='margin:10px;', value=origin) 
-      br     
-      select#origin2.select.form-control.input-lg(form='addProperty', name='origin2')
-          option(value='', selected= true) -- Select --
-          option(value='Phone') Phone
-          option(value='Email') Email
-          option(value='Web') Web
+      input#origin.input-block-level(type="text", name="origin", placeholder="PHONE", style='margin:10px;', value=origin)
       br
       button.btn.btn-large.btn-primary(type="submit", style='margin:10px;') Create
 
