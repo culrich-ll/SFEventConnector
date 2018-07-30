@@ -2,7 +2,7 @@
 
 PRE-REQUISITES
 
-- you will need a Salesforce Org that has a Connected app
+- you will need a Salesforce Org with a Connected app
 - for the customization (platform events and triggers) check the project documentation and get the specified branch
 - and you will need npm --> https://www.npmjs.com/
 
@@ -16,7 +16,7 @@ Create a Connected app in Salesforce:
 
     - Choose an app name
     - Enter your email adress
-    - Enable the Ouath Settings
+    - Enable the Oauth Settings
     - Put the following callback URL:
         http://localhost:3000/token
         
