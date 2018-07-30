@@ -2,9 +2,9 @@
 
 PRE-REQUISITES
 
-You will need a Salesforce Org that has a Connected app.
-For the customization (platform events and triggers) check the project documentation and get the specified branch 
-And you will need npm --> https://www.npmjs.com/
+- you will need a Salesforce Org that has a Connected app
+- for the customization (platform events and triggers) check the project documentation and get the specified branch
+- and you will need npm --> https://www.npmjs.com/
 
 INSTALLATION
 
