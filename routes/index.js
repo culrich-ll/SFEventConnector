@@ -19,6 +19,19 @@ router.get('/', function (req, res, next) {
   }
 });
 
+/* GET the token - this is the callback URL for the SF connected app */
+router.get('/token', function (req, res, next) {
+  if (org == null) {
+    res.render('configuration', {
+      title: 'Configuration'
+    });
+  } else {
+    res.render('index', {
+      User: org.username, Instance: org.oauth.instance_url
+    });
+  }
+});
+
 /* GET configuration page. */
 router.post('/configure', function (req, res, next) {
   delete require.cache[require.resolve('../lib/connection')];
