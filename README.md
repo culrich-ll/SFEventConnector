@@ -39,12 +39,12 @@ The application is available now via http://localhost:3000/
 USE CASES
 
 1. create a case via Node app 
-    http://localhost:3000/ to check your displayed username and instance URL
-    http://localhost:3000/cases to get the list of all cases
-    On the page 'Create case' you will fire the event 'IANA_case_creator__e' by clicking on 'Create' via cometD with your paramaters - see router.post('/publishEvent', ...) in the javascript file index.js
+    - http://localhost:3000/ to check your displayed username and instance URL
+    - http://localhost:3000/cases to get the list of all cases
+    - on the page 'Create case' you will fire the event 'IANA_case_creator__e' by clicking on 'Create' via cometD with your paramaters - see router.post('/publishEvent', ...) in the javascript file index.js
 
 2. update cases in Salesforce
-    After updating a Salesforce case the 'CaseUpdated' trigger will call the IANACaseService.publishEvent() service which fires the 'IANA_case_update__e' platform event
-    Because we are subscriber of this event (see client.subscribe('/event/IANA_case_update__e') in the connection.js), you will get a windows notification in your Node app
+    - after updating a Salesforce case the 'CaseUpdated' trigger will call the IANACaseService.publishEvent() service which fires the 'IANA_case_update__e' platform event
+    - Because we are subscriber of this event (see client.subscribe('/event/IANA_case_update__e') in the connection.js), you will get a windows notification in your Node app
 
 
