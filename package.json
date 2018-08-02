@@ -1,6 +1,6 @@
 {
-  "name": "force-node-nforce",
-  "version": "0.0.0",
+  "name": "node-sf-connector",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/www"
