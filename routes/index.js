@@ -47,7 +47,7 @@ router.get('/create-case', function (req, res, next) {
 });
 
 router.post('/publishEvent', function (req, res, next) {
-  let event = nforce.createSObject('IANA_case_creator__e');
+  var event = nforce.createSObject('IANA_case_creator__e');
   event.set('CaseOrigin__c', req.body.origin);
   event.set('Serial_number__c', req.body.serialNumber);
   event.set('External_ID__c', req.body.externalId);
