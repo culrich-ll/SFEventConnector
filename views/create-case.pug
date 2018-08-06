@@ -16,21 +16,21 @@ block body
      form.form-signin(action="/publishEvent", method="post")
       h3 Create Case
       br
-      input#externalId.input-block-level(type="text", name="externalId", placeholder="Ticket ID", style='margin:10px;', value=externalId)
+      input#externalId.form-control.input-block-level(type="text", name="externalId", placeholder="Ticket ID", style='margin:10px;', value=externalId)
       br
-      input#serialNumber.input-block-level(type="text", name="serialNumber", placeholder="The serial number", style='margin:10px;', value=serialNumber)  
+      input#serialNumber.form-control.input-block-level(type="text", name="serialNumber", placeholder="The serial number", style='margin:10px;', value=serialNumber)  
       br
-      select#origin.select.form-control.input-lg(style='margin:10px;', name='origin')
+      select#origin.select.form-control.input-sm(style='margin:10px;', name='origin')
           option(value='0', selected= true) -- Select origin --
           option PHONE
           option WEB
           option EMAIL
       br
-      input#subject.input-block-level(type="text", name="subject",  placeholder="subject", style='margin:10px;', value=subject)
+      input#subject.form-control.input-block-level(type="text", name="subject",  placeholder="subject", style='margin:10px;', value=subject)
       br
-      input#description.input-block-level(type="text", name="description", placeholder="rich text", style='margin:10px;', value=description)
+      input#description.form-control.input-block-level(type="text", name="description", placeholder="rich text", style='margin:10px;', value=description)
       br
-      select#priority.select.form-control.input-lg(style='margin:10px;', name='priority')
+      select#priority.select.form-control.input-sm(style='margin:10px;', name='priority')
           option(value='0', selected= true) -- Select priority --
           option HIGH
           option MEDIUM
