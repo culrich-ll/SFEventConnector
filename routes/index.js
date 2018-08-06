@@ -1,7 +1,6 @@
 var express = require('express');
 var app = express();
 var router = express.Router();
-var jsforce = require('jsforce');
 var nforce = require('nforce');
 var org = require('../lib/connection');
 var io = require("socket.io-client");
