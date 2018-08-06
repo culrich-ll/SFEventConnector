@@ -70,7 +70,17 @@ router.post('/publishEvent', function (req, res, next) {
     }
   });
   res.redirect('/cases');
-  socket.emit('event', { message: req.body.subject })
+  notifier.notify({
+      title: 'Case updated in SF',
+      message: req.body.externalId,
+      // icon: path.join(__dirname, 'coulson.jpg'), // Absolute path (doesn't work on balloons)
+      sound: true, // Only Notification Center or Windows Toasters
+      wait: true // Wait with callback, until user action is taken against notification
+    },
+    function (err, response) {
+      // Response is response from notification
+    }
+  );
 
 });
 
@@ -177,6 +187,17 @@ router.post('/manage-case', function (req, res, next) {
       } else {
         console.log("IANA_case_creator__e published");
       }
+      notifier.notify({
+          title: 'Case closed',
+          message: req.body.externalId,
+          // icon: path.join(__dirname, 'coulson.jpg'), // Absolute path (doesn't work on balloons)
+          sound: true, // Only Notification Center or Windows Toasters
+          wait: true // Wait with callback, until user action is taken against notification
+        },
+        function (err, response) {
+          // Response is response from notification
+        }
+      );
     });
     res.redirect('/cases');
   } else if (req.body.delete != null) {
