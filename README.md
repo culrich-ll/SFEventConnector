@@ -18,7 +18,7 @@ Create a Connected app in Salesforce:
     - Enter your email adress
     - Enable the Oauth Settings
     - Put the following callback URL:
-        http://localhost:3000/token
+        http://urlFromThisApp/token
         
     - Enable the following scopes:
         Api
@@ -34,13 +34,13 @@ START
 
 $ npm start 
 
-The application is available now via http://localhost:3000/ 
+The application is available now via http://urlFromThisApp/ 
 
 USE CASES
 
 1. create a case via Node app 
-    - http://localhost:3000/ to check your displayed username and instance URL
-    - http://localhost:3000/cases to get the list of all cases
+    - http://urlFromThisApp/ to check your displayed username and instance URL
+    - http://urlFromThisApp/cases to get the list of all cases
     - on the page 'Create case' you will fire the event 'IANA_case_creator__e' by clicking on 'Create' via cometD with your paramaters - see router.post('/publishEvent', ...) in the javascript file index.js
 
 2. update cases in Salesforce

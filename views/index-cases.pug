@@ -1,17 +1,41 @@
 extends ../node_modules/pug-bootstrap/layouts/navbar-fixed
 
-block body
+block scripts
+  script(src='https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js')
+  script(src='/socket.io/socket.io.js')
+  script.
+    var socket = io.connect('http://localhost:3000');
+    socket.on('connect', function () {
+      console.log('user connected on the UI');
+    });
+    socket.on('welcome', function(data) {
+      addMessage(data.message +' '+ data.id);
+    });
+    socket.on('event', function(data) {
+      console.log('SF case updated');
+      addMessage(data);
+    });
+    function addMessage(message) {
+      var text = document.createTextNode(message),
+          el = document.createElement('li'),
+          messages = document.getElementById('sfmessage');
 
+          el.appendChild(text);
+          messages.appendChild(el);
+    }
+
+block body
   +navbar("Force.com","navbar", "inverse")
     +nav_item("/") Home
     +nav_item("/cases", "active") Cases
     +nav_item("/accounts") Accounts
     +nav_item("/contacts") Contacts
     +nav_item("#") Opportunities
-  
+
   .container
     div(style='padding-bottom:10px;')
- 
+    ul(id='sfmessage')
+    br
     div
       form.form-signin(action="/create-case", method="get")
          button.btn.btn-large.btn-primary(type="submit", style='margin:1px;') Create case
@@ -23,11 +47,13 @@ block body
             th Serial number
             th Subject
             th Origin
+            th Priority
+            th Status
         tbody
           each r in records
             
             tr
-             form.form-signin(action="/delete-case", method="post")
+             form.form-signin(action="/manage-case", method="post")
               td
                  input.input-block-level(type="text", 
                                          name="id", 
@@ -37,9 +63,12 @@ block body
               td= r.get('Serial_number__c')
               td= r.get('Subject')
               td= r.get('Origin')
+              td= r.get('Priority')
+              td= r.get('Status')
               td
-                button.btn.btn-large.btn-primary(type="submit", style='margin:1px;') Del
-
+                button.btn.btn-large.btn-primary(type="submit", name="close", style='margin:1px;') Close
+              td
+                button.btn.btn-large.btn-primary(type="submit", name="delete", style='margin:1px;') Del
 
  
 
