@@ -42,6 +42,6 @@ block body
               td= r.get('Priority')
               td= r.get('Status')
               td
-                button.btn.btn-large.btn-primary(type="submit", name="close", style='margin:1px;') Close
+                button.btn.btn-large.btn-primary(type="submit", name="close", style='margin:1px;', disabled=(r.get('Status') == 'Closed' ? true : false)) Close
               td
                 button.btn.btn-large.btn-primary(type="submit", name="delete", style='margin:1px;') Del
