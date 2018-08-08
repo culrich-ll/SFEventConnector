@@ -55,6 +55,7 @@ router.post('/publishEvent', function (req, res, next) {
   event.set('CaseOrigin__c', req.body.origin);
   event.set('Serial_number__c', req.body.serialNumber);
   event.set('External_ID__c', req.body.externalId);
+  event.set('AssetID__c', req.body.asset);
   event.set('Subject__c', req.body.subject);
   event.set('Priority__c', req.body.priority);
   event.set('Description__c', req.body.description);
@@ -99,7 +100,7 @@ router.get('/create-contact', function (req, res, next) {
 router.get('/cases', function (req, res, next) {
 
   org.query({
-      query: "Select Id, Serial_number__c ,External_ID__c, Subject, Origin, Priority, Status From Case Order By LastModifiedDate DESC"
+      query: "Select Id, CaseNumber, Serial_number__c, AssetId, External_ID__c, Subject, Origin, Priority, Status From Case Order By LastModifiedDate DESC"
     })
     .then(function (results) {
       res.render('index-cases', {

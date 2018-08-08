@@ -19,8 +19,10 @@ block body
         thead
           tr 
             th Id 
+            th Case number
             th External ID
             th Serial number
+            th Asset
             th Subject
             th Origin
             th Priority
@@ -35,8 +37,10 @@ block body
                                          name="id", 
                                          value=r.get('id'), readonly
                                          )
+              td= r.get('CaseNumber')
               td= r.get('External_ID__c')
               td= r.get('Serial_number__c')
+              td= r.get('AssetId')
               td= r.get('Subject')
               td= r.get('Origin')
               td= r.get('Priority')
