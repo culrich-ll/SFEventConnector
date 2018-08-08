@@ -70,8 +70,9 @@ router.post('/publishEvent', function (req, res, next) {
     }
   });
   res.redirect('/cases');
+  console.log(event);
   notifier.notify({
-      title: 'Case updated in SF',
+      title: 'Case created in SF',
       message: req.body.externalId,
       // icon: path.join(__dirname, 'coulson.jpg'), // Absolute path (doesn't work on balloons)
       sound: true, // Only Notification Center or Windows Toasters
