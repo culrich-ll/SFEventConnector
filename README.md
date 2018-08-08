@@ -26,7 +26,7 @@ Create a Connected app in Salesforce:
         RefreshToken
         OpenID
 
-    Takes note on the generated consumer key and consumer secret.
+    Take note on the generated consumer key and consumer secret.
 
 Put your SF username, password (with token), the clientId (consumer key) and the clientSecret (consumer secret) from the ConnectedApp in the lib/connection.js 
 
