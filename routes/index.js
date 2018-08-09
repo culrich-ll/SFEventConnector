@@ -53,8 +53,8 @@ router.get('/create-case', function (req, res, next) {
 router.post('/publishEvent', function (req, res, next) {
   var event = nforce.createSObject('IANA_case_creator__e');
   event.set('CaseOrigin__c', req.body.origin);
-  event.set('Serial_number__c', req.body.serialNumber);
-  event.set('External_ID__c', req.body.externalId);
+  event.set('SF_Serial_Number__c', req.body.serialNumber);
+  event.set('KBA_External_ID__c', req.body.externalId);
   event.set('AssetID__c', req.body.asset);
   event.set('Subject__c', req.body.subject);
   event.set('Priority__c', req.body.priority);
@@ -101,7 +101,7 @@ router.get('/create-contact', function (req, res, next) {
 router.get('/cases', function (req, res, next) {
 
   org.query({
-      query: "Select Id, CaseNumber, Serial_number__c, AssetId, External_ID__c, Subject, Origin, Priority, Status From Case Order By LastModifiedDate DESC"
+      query: "Select Id, CaseNumber, SF_Serial_Number__c, AssetId, KBA_External_ID__c, Subject, Origin, Priority, Status From Case Order By LastModifiedDate DESC"
     })
     .then(function (results) {
       res.render('index-cases', {
