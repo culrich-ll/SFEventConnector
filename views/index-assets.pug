@@ -23,7 +23,7 @@ block body
             th AccountId
             th Name
             th Description
-            th StockKeepingUnit
+            th Quantity
             th Status
             th SerialNumber
 
@@ -37,11 +37,10 @@ block body
                                          name="id", 
                                          value=r.get('id'), readonly
                                          )
-              td= r.get('Id')
               td= r.get('AccountId')
               td= r.get('Name')
               td= r.get('Description')
-              td= r.get('StockKeepingUnit')
+              td= r.get('Quantity')
               td= r.get('Status')
               td= r.get('SerialNumber')
               td

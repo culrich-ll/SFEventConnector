@@ -95,7 +95,7 @@ router.post('/publishAssetEvent', function (req, res, next) {
   var event = nforce.createSObject('Asset_creator__e');
   event.set('Name__c', req.body.name);
   event.set('Description__c', req.body.description);
-  event.set('ProductFamily__c', req.body.productFamily);
+  event.set('Quantity__c', req.body.quantity);
   event.set('Status__c', req.body.status);
   event.set('SerialNumber__c', req.body.serialNumber);
   event.set('Command__c', 'CREATE_ASSET');
@@ -139,7 +139,7 @@ router.get('/create-contact', function (req, res, next) {
 router.get('/assets', function (req, res, next) {
 
   org.query({
-      query: "Select Id, AccountId, Name, Description, StockKeepingUnit, Status, SerialNumber From Asset Order By LastModifiedDate DESC"
+      query: "Select Id, AccountId, Name, Description, Quantity, Status, SerialNumber From Asset Order By LastModifiedDate DESC"
     })
     .then(function (results) {
       res.render('index-assets', {
