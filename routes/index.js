@@ -50,6 +50,12 @@ router.get('/create-case', function (req, res, next) {
   });
 });
 
+router.get('/create-asset', function (req, res, next) {
+  res.render('create-asset', {
+    title: 'Create Asset'
+  });
+});
+
 router.post('/publishCaseEvent', function (req, res, next) {
   var event = nforce.createSObject('Case_creator__e');
   event.set('CaseOrigin__c', req.body.origin);
