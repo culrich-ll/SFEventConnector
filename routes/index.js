@@ -50,11 +50,11 @@ router.get('/create-case', function (req, res, next) {
   });
 });
 
-router.post('/publishEvent', function (req, res, next) {
-  var event = nforce.createSObject('IANA_case_creator__e');
+router.post('/publishCaseEvent', function (req, res, next) {
+  var event = nforce.createSObject('Case_creator__e');
   event.set('CaseOrigin__c', req.body.origin);
-  event.set('SF_Serial_Number__c', req.body.serialNumber);
-  event.set('KBA_External_ID__c', req.body.externalId);
+  event.set('Serial_Number__c', req.body.serialNumber);
+  event.set('External_ID__c', req.body.externalId);
   event.set('AssetID__c', req.body.asset);
   event.set('Subject__c', req.body.subject);
   event.set('Priority__c', req.body.priority);
@@ -66,13 +66,43 @@ router.post('/publishEvent', function (req, res, next) {
     if (err) {
       console.error(err);
     } else {
-      console.log("IANA_case_creator__e published");
+      console.log("Case_creator__e published");
     }
   });
   res.redirect('/cases');
   console.log(event);
   notifier.notify({
       title: 'Case created in SF',
+      message: req.body.externalId,
+      // icon: path.join(__dirname, 'coulson.jpg'), // Absolute path (doesn't work on balloons)
+      sound: true, // Only Notification Center or Windows Toasters
+      wait: true // Wait with callback, until user action is taken against notification
+    },
+    function (err, response) {
+      // Response is response from notification
+    }
+  );
+
+});
+
+router.post('/publishAssetEvent', function (req, res, next) {
+  var event = nforce.createSObject('Asset_creator__e');
+  event.set('Serial_Number__c', req.body.serialNumber);
+  event.set('External_ID__c', req.body.externalId);
+  event.set('AssetID__c', req.body.asset);
+  org.insert({
+    sobject: event
+  }, err => {
+    if (err) {
+      console.error(err);
+    } else {
+      console.log("Asset_creator__e published");
+    }
+  });
+  res.redirect('/assets');
+  console.log(event);
+  notifier.notify({
+      title: 'Asset created in SF',
       message: req.body.externalId,
       // icon: path.join(__dirname, 'coulson.jpg'), // Absolute path (doesn't work on balloons)
       sound: true, // Only Notification Center or Windows Toasters
@@ -98,10 +128,23 @@ router.get('/create-contact', function (req, res, next) {
   });
 });
 
+router.get('/assets', function (req, res, next) {
+
+  org.query({
+      query: "Select Id, AccountId, Name, Description, ProductFamily, Status, SerialNumber From Asset Order By LastModifiedDate DESC"
+    })
+    .then(function (results) {
+      res.render('index-assets', {
+        records: results.records
+      });
+    });
+
+});
+
 router.get('/cases', function (req, res, next) {
 
   org.query({
-      query: "Select Id, CaseNumber, SF_Serial_Number__c, AssetId, KBA_External_ID__c, Subject, Origin, Priority, Status From Case Order By LastModifiedDate DESC"
+      query: "Select Id, CaseNumber, Subject, Origin, Priority, Status From Case Order By LastModifiedDate DESC"
     })
     .then(function (results) {
       res.render('index-cases', {
