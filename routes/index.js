@@ -87,9 +87,11 @@ router.post('/publishCaseEvent', function (req, res, next) {
 
 router.post('/publishAssetEvent', function (req, res, next) {
   var event = nforce.createSObject('Asset_creator__e');
-  event.set('Serial_Number__c', req.body.serialNumber);
-  event.set('External_ID__c', req.body.externalId);
-  event.set('AssetID__c', req.body.asset);
+  event.set('Name__c', req.body.name);
+  event.set('Description__c', req.body.description);
+  event.set('ProductFamily__c', req.body.productFamily);
+  event.set('Status__c', req.body.status);
+  event.set('SerialNumber__c', req.body.serialNumber);
   org.insert({
     sobject: event
   }, err => {
@@ -112,7 +114,6 @@ router.post('/publishAssetEvent', function (req, res, next) {
       // Response is response from notification
     }
   );
-
 });
 
 

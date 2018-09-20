@@ -14,38 +14,36 @@ block body
     ul(id='sfmessage')
     br
     div
-      form.form-signin(action="/create-case", method="get")
-         button.btn.btn-large.btn-primary(type="submit", style='margin:1px;') Create case
+      form.form-signin(action="/create-asset", method="get")
+         button.btn.btn-large.btn-primary(type="submit", style='margin:1px;') Create asset
       table.table.table-striped.table-hover.span12
         thead
           tr 
             th Id 
-            th Case number
-            th External ID
-            th Serial number
-            th Asset
-            th Subject
-            th Origin
-            th Priority
+            th AccountId
+            th Name
+            th Description
+            th ProductFamily
             th Status
+            th SerialNumber
+
         tbody
           each r in records
             
             tr
-             form.form-signin(action="/manage-case", method="post")
+             form.form-signin(action="/manage-asset", method="post")
               td
                  input.input-block-level(type="text", 
                                          name="id", 
                                          value=r.get('id'), readonly
                                          )
-              td= r.get('CaseNumber')
-              td= r.get('KBA_External_ID__c')
-              td= r.get('SF_Serial_Number__c')
-              td= r.get('AssetId')
-              td= r.get('Subject')
-              td= r.get('Origin')
-              td= r.get('Priority')
+              td= r.get('Id')
+              td= r.get('AccountId')
+              td= r.get('Name')
+              td= r.get('Description')
+              td= r.get('ProductFamily')
               td= r.get('Status')
+              td= r.get('SerialNumber')
               td
                 button.btn.btn-large.btn-primary(type="submit", name="close", style='margin:1px;', disabled=(r.get('Status') == 'Closed' ? true : false)) Close
               td

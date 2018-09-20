@@ -1,0 +1,39 @@
+extends ../node_modules/pug-bootstrap/layouts/navbar-fixed
+
+block body
+
+  +navbar("Force.com","navbar", "inverse")
+    +nav_item("/") Home
+    +nav_item("/assets", "active") Assets
+    +nav_item("/cases") Cases
+    +nav_item("/accounts") Accounts
+    +nav_item("/contacts") Contacts
+    +nav_item("#") Opportunities
+  
+  .container
+    div(style='padding-bottom:10px;')
+ 
+    div(style='padding:10px;')
+     form.form-signin(action="/publishAssetEvent", method="post")
+      h3 Create Asset
+      br
+      input#externalId.form-control.input-block-level(type="text", name="Name", placeholder="Name", style='margin:10px;', value=name)
+      br
+      input#serialNumber.form-control.input-block-level(type="text", name="Description", placeholder="Description", style='margin:10px;', value=description)  
+      br
+      input#asset.form-control.input-block-level(type="text", name="ProductFamily", placeholder="ProductFamily", style='margin:10px;', value=productFamily)  
+      br
+      select#origin.select.form-control.input-sm(style='margin:10px;', name='status')
+          option(value='0', selected= true) -- Select status --
+          option Shipped
+          option Installed
+          option Registered
+          option Obsolate
+          option Purchased
+      br
+      input#subject.form-control.input-block-level(type="text", name="SerialNumber",  placeholder="SerialNumber", style='margin:10px;', value=serialNumber)
+      br
+      input#description.form-control.input-block-level(type="text", name="description", placeholder="rich text", style='margin:10px;', value=description)
+      br
+      button.btn.btn-large.btn-primary(type="submit", style='margin:10px;') Create
+
