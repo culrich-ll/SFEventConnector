@@ -7,7 +7,7 @@ var notifier = require('node-notifier');
 
 /* GET home page. */
 router.get('/', function (req, res, next) {
-  if (org == null) {
+  if (org.oauth == null) {
     res.render('configuration', {
       title: 'Configuration'
     });
