@@ -139,7 +139,7 @@ router.get('/create-contact', function (req, res, next) {
 router.get('/assets', function (req, res, next) {
 
   org.query({
-      query: "Select Id, AccountId, Name, Description, Quantity, Status, SerialNumber From Asset Order By LastModifiedDate DESC"
+      query: "Select Id, AccountId, Name, Description, Quantity, Status, SerialNumber, RPM__c, Thumbnail_Image__c, Operating_Hours__c From Asset Order By LastModifiedDate DESC"
     })
     .then(function (results) {
       res.render('index-assets', {
@@ -282,7 +282,7 @@ router.post('/manage-asset', function (req, res, next) {
         console.log("Asset_creator__e published");
       }
       notifier.notify({
-          title: 'Asset changed',
+          title: 'Asset created',
           message: req.body.externalId,
           // icon: path.join(__dirname, 'coulson.jpg'), // Absolute path (doesn't work on balloons)
           sound: true, // Only Notification Center or Windows Toasters
@@ -299,6 +299,47 @@ router.post('/manage-asset', function (req, res, next) {
     cs.set('Id', req.body.id);
     console.log('id: %s', req.body.id);
     org.delete({
+        sobject: cs
+      })
+      .then(function (msg) {
+        res.render('message', {
+          title: 'Asset deleted: ' + String(req.body.id)
+        });
+      });
+  } else if (req.body.save != null) {
+    /*
+    var event = nforce.createSObject('Asset_update__e');
+    event.set('Id__c', req.body.id[0]);
+    //event.set('Key__c', req.body.id[1]);
+    //event.set('Value__e', req.body.id[2]);
+    event.set('Command__c', 'UPDATE_ASSET');
+    org.insert({
+      sobject: event
+    }, err => {
+      if (err) {
+        console.error(err);
+      } else {
+        console.log("Asset_update__e published");
+      }
+      notifier.notify({
+          title: 'Asset updated',
+          message: req.body.externalId,
+          // icon: path.join(__dirname, 'coulson.jpg'), // Absolute path (doesn't work on balloons)
+          sound: true, // Only Notification Center or Windows Toasters
+          wait: true // Wait with callback, until user action is taken against notification
+        },
+        function (err, response) {
+          // Response is response from notification
+        }
+      );
+    });
+    */
+    var cs = nforce.createSObject('Asset');
+    cs.set('Id', req.body.id[0]);
+    cs.set('RPM__c', req.body.id[1]);
+    cs.set('Operating_Hours__c', req.body.id[2]);
+    console.log('id: %s', req.body.id[0]);
+    org.update({
         sobject: cs
       })
       .then(function (msg) {

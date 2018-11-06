@@ -15,17 +15,20 @@ block body
     br
     div
       form.form-signin(action="/create-asset", method="get")
-         button.btn.btn-large.btn-primary(type="submit", style='margin:1px;') Create asset
+         // button.btn.btn-large.btn-primary(type="submit", style='margin:1px;') Create asset
       table.table.table-striped.table-hover.span12
         thead
           tr 
             th Id 
-            th AccountId
+            // th AccountId
             th Name
             th Description
-            th Quantity
-            th Status
+            //th Quantity
+            //th Status
             th SerialNumber
+            //th Thumbnail Image
+            th Rounds Per Minute
+            th Operating Hours
 
         tbody
           each r in records
@@ -37,11 +40,22 @@ block body
                                          name="id", 
                                          value=r.get('id'), readonly
                                          )
-              td= r.get('AccountId')
+              // td= r.get('AccountId')
               td= r.get('Name')
               td= r.get('Description')
-              td= r.get('Quantity')
-              td= r.get('Status')
+              //td= r.get('Quantity')
+              //td= r.get('Status')
               td= r.get('SerialNumber')
+              //td= r.get('Thumbnail_Image__c')
+              td
+                 input.input-block-level(type="text", 
+                                         name="id", 
+                                         value=r.get('RPM__c'))
+              td
+                 input.input-block-level(type="text", 
+                                         name="id", 
+                                         value=r.get('Operating_Hours__c'))
+              td
+                button.btn.btn-large.btn-primary(type="submit", name="save", style='margin:1px;') Save
               td
                 button.btn.btn-large.btn-primary(type="submit", name="delete", style='margin:1px;') Del
