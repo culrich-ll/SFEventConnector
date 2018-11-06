@@ -26,14 +26,10 @@ router.get('/token', function (req, res, next) {
       title: 'Configuration'
     });
   } else {
-    var instance_url = "";
-    if (org.oauth) {
-      instance_url = org.oauth.instance_url;
-      res.render('index', {
-        User: org.username,
-        Instance: instance_url
-      });
-    }
+    res.render('index', {
+      User: org.username,
+      Instance: org.oauth.instance_url
+    });
   }
 });
 
@@ -41,20 +37,11 @@ router.get('/token', function (req, res, next) {
 router.post('/configure', function (req, res, next) {
   delete require.cache[require.resolve('../lib/connection')];
   module.exports = req.body;
-  process.env.CLIENT_ID = req.body.clientId;
-  process.env.CLIENT_SECRET = req.body.clientSecret;
-  process.env.REDIRECT_URI = req.body.redirectUri;
-  process.env.USERNAME = req.body.username;
-  process.env.PASSWORD = req.body.password;
   require('../lib/connection');
-  var instance_url = "";
-  if (org.oauth) {
-    instance_url = org.oauth.instance_url;
-    res.render('index', {
-      User: org.username,
-      Instance: instance_url
-    });
-  }
+  res.render('index', {
+    User: org.username,
+    Instance: org.oauth.instance_url
+  });
 });
 
 router.get('/create-case', function (req, res, next) {
