@@ -136,10 +136,19 @@ router.get('/create-contact', function (req, res, next) {
   });
 });
 
+router.get('/service', function (req, res, next) {
+
+  
+      res.render('serviceCheckpoint', {
+        
+      });
+
+});
+
 router.get('/assets', function (req, res, next) {
 
   org.query({
-      query: "Select Id, AccountId, Name, Description, Quantity, Status, SerialNumber, RPM__c, Thumbnail_Image__c, Operating_Hours__c From Asset Order By LastModifiedDate DESC"
+      query: "Select Id, AccountId, Product2Id, Name, Description, Quantity, Status, SerialNumber, RPM__c, Thumbnail_Image__c, Operating_Hours__c From Asset Order By LastModifiedDate DESC"
     })
     .then(function (results) {
       res.render('index-assets', {
@@ -307,21 +316,29 @@ router.post('/manage-asset', function (req, res, next) {
         });
       });
   } else if (req.body.save != null) {
-    /*
-    var event = nforce.createSObject('Asset_update__e');
-    event.set('Id__c', req.body.id[0]);
-    //event.set('Key__c', req.body.id[1]);
-    //event.set('Value__e', req.body.id[2]);
-    event.set('Command__c', 'UPDATE_ASSET');
-    org.insert({
-      sobject: event
-    }, err => {
-      if (err) {
-        console.error(err);
-      } else {
-        console.log("Asset_update__e published");
-      }
-      notifier.notify({
+    
+    if(req.body.id[1] != "") {
+      var event = nforce.createSObject('AssetUpdate__e');
+      event.set('AssetID__c', req.body.id[0]);
+      //event.set('Key__c', req.body.id[1]);
+      //event.set('Value__e', req.body.id[2]);
+      event.set('Field_To_Track__c', 'RPM__c');
+      event.set('Value_To_Track__c', req.body.id[1]);
+    
+    
+      org.insert({
+        sobject: event
+      }, err => {
+        if (err) {
+          console.error(err);
+        } else {
+          console.log("AssetUpdate__e published");
+          res.render('message', {
+            title: 'Asset changed: ' + String(req.body.id)
+          });
+          
+        }
+        notifier.notify({
           title: 'Asset updated',
           message: req.body.externalId,
           // icon: path.join(__dirname, 'coulson.jpg'), // Absolute path (doesn't work on balloons)
@@ -333,7 +350,41 @@ router.post('/manage-asset', function (req, res, next) {
         }
       );
     });
-    */
+  } else if(req.body.id[2] != null) {
+    var event = nforce.createSObject('AssetUpdate__e');
+    event.set('AssetID__c', req.body.id[0]);
+    //event.set('Key__c', req.body.id[1]);
+    //event.set('Value__e', req.body.id[2]);
+    event.set('Field_To_Track__c', '	Operating_Hours__c');
+    event.set('Value_To_Track__c', req.body.id[2]);
+  
+  
+    org.insert({
+      sobject: event
+    }, err => {
+      if (err) {
+        console.error(err);
+      } else {
+        console.log("AssetUpdate__e published");
+        res.render('message', {
+          title: 'Asset changed: ' + String(req.body.id)
+        });
+      }
+      notifier.notify({
+        title: 'Asset updated',
+        message: req.body.externalId,
+        // icon: path.join(__dirname, 'coulson.jpg'), // Absolute path (doesn't work on balloons)
+        sound: true, // Only Notification Center or Windows Toasters
+        wait: true // Wait with callback, until user action is taken against notification
+      },
+      function (err, response) {
+        // Response is response from notification
+      }
+    );
+  });
+}
+   
+    /*
     var cs = nforce.createSObject('Asset');
     cs.set('Id', req.body.id[0]);
     cs.set('RPM__c', req.body.id[1]);
@@ -347,6 +398,7 @@ router.post('/manage-asset', function (req, res, next) {
           title: 'Asset changed: ' + String(req.body.id)
         });
       });
+      */
   }
 });
 
