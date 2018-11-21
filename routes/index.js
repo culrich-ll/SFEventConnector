@@ -136,15 +136,6 @@ router.get('/create-contact', function (req, res, next) {
   });
 });
 
-router.get('/service', function (req, res, next) {
-
-  
-      res.render('serviceCheckpoint', {
-        
-      });
-
-});
-
 router.get('/assets', function (req, res, next) {
 
   org.query({
