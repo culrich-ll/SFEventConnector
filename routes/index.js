@@ -228,30 +228,20 @@ router.post('/create-contact', function (req, res, next) {
 router.post('/manage-case', function (req, res, next) {
 
   if (req.body.close != null) {
-    var event = nforce.createSObject('IANA_case_creator__e');
-    event.set('CaseID__c', req.body.id);
-    event.set('Command__c', 'CLOSE_CASE');
-    org.insert({
-      sobject: event
-    }, err => {
-      if (err) {
-        console.error(err);
-      } else {
-        console.log("IANA_case_creator__e published");
-      }
-      notifier.notify({
-          title: 'Case closed',
-          message: req.body.externalId,
-          // icon: path.join(__dirname, 'coulson.jpg'), // Absolute path (doesn't work on balloons)
-          sound: true, // Only Notification Center or Windows Toasters
-          wait: true // Wait with callback, until user action is taken against notification
-        },
-        function (err, response) {
-          // Response is response from notification
-        }
-      );
-    });
-    res.redirect('/cases');
+    var cs = nforce.createSObject('Case');
+    cs.set('Id', req.body.id);
+    cs.set('Status', 'Closed');
+    console.log('id: %s', req.body.id);
+    org.update({
+        sobject: cs
+      })
+      .then(function (msg) {
+        res.render('message', {
+          title: 'Case closed: ' + String(req.body.id)
+        });
+        res.redirect('/cases');
+      });
+
   } else if (req.body.delete != null) {
     var cs = nforce.createSObject('Case');
     cs.set('Id', req.body.id);
