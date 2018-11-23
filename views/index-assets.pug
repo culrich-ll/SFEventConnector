@@ -23,12 +23,13 @@ block body
             // th AccountId
             th Name
             th Description
-            th Product
+            //th Product
             //th Status
             th SerialNumber
             //th Thumbnail Image
             th Rounds Per Minute
             th Operating Hours
+            th Service date
 
         tbody
           each r in records
@@ -43,7 +44,7 @@ block body
               // td= r.get('AccountId')
               td= r.get('Name')
               td= r.get('Description')
-              td= r.get('Product2Id')
+              //td= r.get('Product2Id')
               //td= r.get('Status')
               td= r.get('SerialNumber')
               //td= r.get('Thumbnail_Image__c')
@@ -55,6 +56,10 @@ block body
                  input.input-block-level(type="text", 
                                          name="id", 
                                          value=r.get('Operating_Hours__c'))
+              td
+                 input.input-block-level(type="date", 
+                                         name="id", 
+                                         value=r.get('Service_date__c'))
               td
                 button.btn.btn-large.btn-primary(type="submit", name="save", style='margin:1px;') Save
               td
