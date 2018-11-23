@@ -259,41 +259,16 @@ router.post('/manage-case', function (req, res, next) {
 
 router.post('/manage-asset', function (req, res, next) {
 
-  if (req.body.close != null) {
-    var event = nforce.createSObject('Asset_creator__e');
-    event.set('Id__c', req.body.id);
-    event.set('Command__c', 'UPDATE_ASSET');
-    org.insert({
-      sobject: event
-    }, err => {
-      if (err) {
-        console.error(err);
-      } else {
-        console.log("Asset_creator__e published");
-      }
-      notifier.notify({
-          title: 'Asset created',
-          message: req.body.externalId,
-          // icon: path.join(__dirname, 'coulson.jpg'), // Absolute path (doesn't work on balloons)
-          sound: true, // Only Notification Center or Windows Toasters
-          wait: true // Wait with callback, until user action is taken against notification
-        },
-        function (err, response) {
-          // Response is response from notification
-        }
-      );
-    });
-    res.redirect('/assets');
-  } else if (req.body.delete != null) {
+  if (req.body.delete != null) {
     var cs = nforce.createSObject('Asset');
-    cs.set('Id', req.body.id);
-    console.log('id: %s', req.body.id);
+    cs.set('Id', req.body.id[0]);
+    console.log('id: %s', req.body.id[0]);
     org.delete({
         sobject: cs
       })
       .then(function (msg) {
         res.render('message', {
-          title: 'Asset deleted: ' + String(req.body.id)
+          title: 'Asset deleted: ' + String(req.body.id[0])
         });
       });
   } else if (req.body.save != null) {
