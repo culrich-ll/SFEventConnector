@@ -378,7 +378,7 @@ router.post('/manage-asset', function (req, res, next) {
   event.set('AssetID__c', req.body.id[0]);
   //event.set('Key__c', req.body.id[1]);
   //event.set('Value__e', req.body.id[2]);
-  event.set('Field_To_Track__c', 'Service_date__c');
+  event.set('Field_To_Track__c', 'ServiceDate__c');
   event.set('Value_To_Track__c', req.body.id[3]);
 
 
