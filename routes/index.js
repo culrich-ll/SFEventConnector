@@ -139,7 +139,7 @@ router.get('/create-contact', function (req, res, next) {
 router.get('/assets', function (req, res, next) {
 
   org.query({
-      query: "Select Id, AccountId, Product2Id, Name, Description, Quantity, Status, SerialNumber, RPM__c, Thumbnail_Image__c, Operating_Hours__c, ServiceDate__c From Asset Order By LastModifiedDate DESC"
+      query: "Select Id, AccountId, Product2Id, Name, Description, Quantity, Status, SerialNumber, RPM__c, Thumbnail_Image__c, Operating_Hours__c, ServiceDate__c From Asset WHERE Location__latitude__s != null Order By LastModifiedDate DESC"
     })
     .then(function (results) {
       res.render('index-assets', {
